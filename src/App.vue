@@ -1,16 +1,18 @@
 <template>
-  <div>
-    <div>Hello, world!</div>
-    <div v-for="(lunch, index) in businessLunchList.data" :key="index">
-      <h1>{{ lunch.name }}</h1>
-    </div>
-  </div>
+  <widget-business-lunches
+    title="Бизнес-ланчи в Витебске"
+    :lunchList="businessLunchList.data"
+  />
 </template>
 
 <script>
+import WidgetBusinessLunches from "./components/WidgetBusinessLunches/WidgetBusinessLunches.vue";
 import businessLunchList from "./mockData/business-lunches.json";
 
 export default {
+  components: {
+    WidgetBusinessLunches,
+  },
   data() {
     return {
       businessLunchList,
