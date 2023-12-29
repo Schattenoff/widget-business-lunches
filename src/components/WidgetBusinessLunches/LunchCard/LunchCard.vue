@@ -12,7 +12,7 @@
         </span>
         <span
           class="lunch-card__about-time"
-          v-if="lunch.startTime || lunch.endTime"
+          v-if="lunch.startTime && lunch.endTime"
         >
           {{ `${lunch.startTime} - ${lunch.endTime}` }}
         </span>
