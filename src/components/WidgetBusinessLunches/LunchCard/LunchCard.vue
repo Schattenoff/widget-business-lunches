@@ -59,6 +59,24 @@ export default {
   white-space: normal;
 }
 
+@media (max-width: 1024px) {
+  .lunch-card {
+    min-width: calc(100% / 3);
+  }
+}
+
+@media (max-width: 768px) {
+  .lunch-card {
+    min-width: calc(100% / 2);
+  }
+}
+
+@media (max-width: 576px) {
+  .lunch-card {
+    min-width: 100%;
+  }
+}
+
 .lunch-card__img-wrapper {
   position: relative;
   display: inherit;

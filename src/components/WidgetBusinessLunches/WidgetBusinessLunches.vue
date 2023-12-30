@@ -22,7 +22,9 @@
     </div>
     <div
       class="widget-business-lunches__list"
-      :style="{ transform: `translateX(-${currentIndex * 25}%)` }"
+      :style="{
+        transform: `translateX(-${currentIndex * (100 / visibleItems)}%)`,
+      }"
     >
       <lunch-card
         v-for="(lunch, index) in lunchList"
@@ -50,6 +52,7 @@ export default {
   data() {
     return {
       currentIndex: 0,
+      visibleItems: 4,
     };
   },
   computed: {
@@ -57,7 +60,7 @@ export default {
       return this.currentIndex === 0;
     },
     atEnd() {
-      return this.currentIndex >= this.lunchList.length - 4;
+      return this.currentIndex >= this.lunchList.length - this.visibleItems;
     },
   },
   methods: {
@@ -71,6 +74,24 @@ export default {
         this.currentIndex--;
       }
     },
+    updateVisibleItems() {
+      if (window.innerWidth <= 576) {
+        this.visibleItems = 1;
+      } else if (window.innerWidth <= 768) {
+        this.visibleItems = 2;
+      } else if (window.innerWidth <= 1024) {
+        this.visibleItems = 3;
+      } else {
+        this.visibleItems = 4;
+      }
+    },
+  },
+  mounted() {
+    this.updateVisibleItems();
+    window.addEventListener("resize", this.updateVisibleItems);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.updateVisibleItems);
   },
 };
 </script>
@@ -143,5 +164,35 @@ export default {
   flex-wrap: nowrap;
   gap: 1px;
   transition: transform 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .widget-business-lunches__title a {
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .widget-business-lunches__list {
+    gap: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .widget-business-lunches__header {
+    gap: 10px;
+    padding: 22px 18px;
+  }
+  .widget-business-lunches__title a {
+    font-size: 30px;
+    line-height: 30px;
+  }
+
+  .widget-business-lunches__carte-icon {
+    display: none;
+  }
+
+  .widget-business-lunches__actions {
+    gap: 20px;
+  }
 }
 </style>
