@@ -23,7 +23,7 @@
     <div
       class="widget-business-lunches__list"
       :style="{
-        transform: `translateX(-${currentIndex * (100 / visibleItems)}%)`,
+        transform: `translateX(-${translatePercent}%)`,
       }"
     >
       <lunch-card
@@ -56,6 +56,9 @@ export default {
     };
   },
   computed: {
+    translatePercent() {
+      return this.currentIndex * (100 / this.visibleItems);
+    },
     atStart() {
       return this.currentIndex === 0;
     },
